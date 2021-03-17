@@ -233,7 +233,7 @@ export class BOAClient {
 
                         let boa_client: boasdk.BOAClient = new boasdk.BOAClient(this.server_url.toString(), this.agora_url.toString());
                         let block_height: boasdk.JSBI = await boa_client.getBlockHeight();
-                        if (sender.drawn <= boasdk.JSBI.BigInt(0)) {
+                        if (boasdk.JSBI.LE(sender.drawn, boasdk.JSBI.BigInt(0))) {
                             return resolve({ error: true, message: messages.REQUESTED_AMOUNT_ERROR });
                         }
 
@@ -242,7 +242,7 @@ export class BOAClient {
                         let utxo_manager: boasdk.UTXOManager = new boasdk.UTXOManager(utxos);
                         // Get UTXO for the amount to need.
                         let checkBalance: boasdk.JSBI = utxo_manager.getSum(block_height)[0];
-                        if (checkBalance < sender.drawn) {
+                        if (boasdk.JSBI.LT(checkBalance, sender.drawn)) {
                             return resolve({ error: true, message: messages.INSUFFICIENT_BALANCE_IN_ACCOUNT + senderkp.address.toString() })
                         }
 
