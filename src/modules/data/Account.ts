@@ -282,8 +282,8 @@ export class Account {
                 type ? url.addQuery({ type: type }) : "";
                 beginDate ? url.addQuery({ beginDate: Number(beginDate) }) : "";
                 endDate ? url.addQuery({ endDate: Number(endDate) }) : "";
-                page ? url.addQuery({ page: page }) : "";
-                pageSize ? url.addQuery({ pageSize: pageSize }) : "";
+                page ? url.addQuery({ page: Number(page) }) : "";
+                pageSize ? url.addQuery({ pageSize: Number(pageSize) }) : "";
 
                 Request.get(url.toString())
                     .then((response: AxiosResponse) => {
@@ -400,7 +400,7 @@ export class Account {
                     });
             }
             while (iterationLength === 10);
-            url.removeQuery({ page: page });
+            await url.removeQuery(["page"]);
             return (resolve({ error: false, data: { totalPages, totalRecords }, message: messages.SUCCESS }));
         });
     }
