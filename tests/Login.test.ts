@@ -4,34 +4,34 @@ import * as assert from 'assert';
 describe("Login", () => {
     describe('Login user', () => {
         it("Login using secret key", async () => {
-            let secretkey = 'SCT4KKJNYLTQO4TVDPVJQZEONTVVW66YLRWAINWI3FZDY7U4JS4JJEI4';
+            let secretkey = 'SA4SEDSUCKXWKQDZWXKE4F4UWQDQS2PNTNHKDPY3MGBNCLGK6XIA3CDR';
             let result: any = await wallet_lib.Login.loginUser(secretkey);
             assert.strictEqual(result.error, false);
             assert.ok(result.data.token);
         });
 
         it("Login using invalid secret key", async () => {
-            let secretkey = 'SCT4KKJNYLTQO4TVDPVJQZEONTVVW66YLRWAINWI3FZDY7U4JS4JJE4';
+            let secretkey = 'SA4SEDSUCKXWKQDZWXKE4F4UWQDQS2PNTNHKDPY3MGBNCLGK6XIA3CR';
             let result: any = await wallet_lib.Login.loginUser(secretkey);
             assert.strictEqual(result.message, 'Invalid Key length');
         });
 
         it("Login using public key", async () => {
-            let publickey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
+            let publickey = 'boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d';
             let result: any = await wallet_lib.Login.loginUser(publickey);
             assert.strictEqual(result.error, false);
             assert.ok(result.data.token);
         });
 
         it("Login using invalid public key", async () => {
-            let publickey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRJ';
+            let publickey = 'boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9gls0d';
             let result: any = await wallet_lib.Login.loginUser(publickey);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, 'Invalid Key length');
         });
 
         it("Login with random key", async () => {
-            let publickey = 'ACOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRJ';
+            let publickey = 'boa1xpess3t9us5xen52asdlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d';
             let result: any = await wallet_lib.Login.loginUser(publickey);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, 'This key is not valid');
@@ -46,13 +46,13 @@ describe("Login", () => {
 
     describe('Verify token', () => {
         it("Verify json web token", async () => {
-            let secretkey = 'SCT4KKJNYLTQO4TVDPVJQZEONTVVW66YLRWAINWI3FZDY7U4JS4JJEI4';
+            let secretkey = 'SA4SEDSUCKXWKQDZWXKE4F4UWQDQS2PNTNHKDPY3MGBNCLGK6XIA3CDR';
             let result: any = await wallet_lib.Login.loginUser(secretkey);
             let verifyJWT: any = await wallet_lib.Login.verifyJWT(result.data.token);
             assert.strictEqual(verifyJWT.error, false);
             assert.strictEqual(verifyJWT.data.found, true);
             assert.strictEqual(verifyJWT.data.expired, false);
-            assert.strictEqual(verifyJWT.data.publickey, "GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ");
+            assert.strictEqual(verifyJWT.data.publickey, "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt");
         });
 
         it("Verify invalid token", async () => {

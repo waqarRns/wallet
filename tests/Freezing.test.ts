@@ -33,8 +33,8 @@ describe('Freezing', () => {
     describe('Do Freeze Transaction', () => {
         it('Do Freeze Transaction before checking other functions', async () => {
             let requestedAmount = boasdk.JSBI.BigInt(30000);
-            let receiver = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
-            let mainKey = "SCT4KKJNYLTQO4TVDPVJQZEONTVVW66YLRWAINWI3FZDY7U4JS4JJEI4";
+            let receiver = "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt";
+            let mainKey = "SA4SEDSUCKXWKQDZWXKE4F4UWQDQS2PNTNHKDPY3MGBNCLGK6XIA3CDR";
             let createTx: any = await boa_client.createTransaction(receiver, requestedAmount, mainKey, boasdk.JSBI.BigInt(0), true);
             assert.strictEqual(createTx.error, false);
             let sendTx: any = await boa_client.sendToAgora(createTx.data.transaction, createTx.data.txHash);
@@ -55,7 +55,7 @@ describe('Freezing', () => {
 
     describe("Get Freeze UTXO's", () => {
         it("Get Freeze UTXO's by providing array of publicKeys", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt';
             let freezeUtxos: any = await freezing.getFreezeUtxos([publicKey]);
             assert.strictEqual(freezeUtxos.error, false);
             assert.strictEqual(freezeUtxos.message, 'Successfull');
@@ -63,7 +63,7 @@ describe('Freezing', () => {
         });
 
         it("Get Freeze UTXO's by providing array of publicKeys expecting empty return", async () => {
-            let publicKey = 'GAHZWHFTEBXE7JGDPBEZUWX5FAQYNBBLLTUITIN2LRHVEQYO6I2JM343';
+            let publicKey = 'boa1xqcxu9rvrev9hmmwa8gxuzkvnlamkgyka37quglu5mnsfc42te97xlpnawp';
             let freezeUtxos: any = await freezing.getFreezeUtxos([publicKey]);
             assert.strictEqual(freezeUtxos.error, false);
             assert.strictEqual(freezeUtxos.message, 'Successfull');
@@ -71,14 +71,14 @@ describe('Freezing', () => {
         });
 
         it("Get Freeze UTXO's by providing array of invalid publicKey", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPARIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686lop5wj2yt';
             let freezeUtxos: any = await freezing.getFreezeUtxos([publicKey]);
             assert.strictEqual(freezeUtxos.error, true);
             assert.strictEqual(freezeUtxos.message, 'This key is not valid');
         });
 
         it("Get Freeze UTXO's by hitting wrong URL", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt';
             let freezeUtxos: any = await invalid_freezing.getFreezeUtxos([publicKey]);
             assert.strictEqual(freezeUtxos.error, true);
             assert.strictEqual(freezeUtxos.message, 'Error occurred in axois request');
@@ -88,7 +88,7 @@ describe('Freezing', () => {
     describe("Select Unfreeze UTXO's by user", () => {
         it("Select Unfreeze UTXO's by user", async () => {
             let utxoAmount = ["2000"];
-            let address = "GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ";
+            let address = "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt";
             let result: any = await freezing.selectFreezeUtxos(utxoAmount, address);
             assert.strictEqual(result.error, false);
             assert.strictEqual(result.message, 'Successfull');
@@ -97,7 +97,7 @@ describe('Freezing', () => {
 
         it("Select Unfreeze UTXO's by user with invalid address", async () => {
             let utxoAmount = ["2000000"];
-            let address = "GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLAIJ";
+            let address = "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wk2yt";
             let result: any = await freezing.selectFreezeUtxos(utxoAmount, address);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, 'This key is not valid');
@@ -105,7 +105,7 @@ describe('Freezing', () => {
 
         it("Select Unfreeze UTXO's for amount greater then the freeze amount of the address", async () => {
             let utxoAmount = ["200000000"];
-            let address = "GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ";
+            let address = "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt";
             let result: any = await freezing.selectFreezeUtxos(utxoAmount, address);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, 'Amount you want to unfreeze is greater than total frozen amount of current account');
@@ -113,7 +113,7 @@ describe('Freezing', () => {
 
         it("Select Unfreeze UTXO's by hitting wrong URL", async () => {
             let utxoAmount = ["2000000"];
-            let address = "GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ";
+            let address = "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt";
             let result: any = await invalid_freezing.selectFreezeUtxos(utxoAmount, address);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, 'Error occurred in axois request');
@@ -122,7 +122,7 @@ describe('Freezing', () => {
 
     describe('Get hashes of Freeze Transactions', () => {
         it("Get hashes of Freeze Transactions by providing array of addresses", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt';
             let hashes: any = await freezing.getFreezeTransactionHashes([publicKey], "", "", "", []);
             assert.strictEqual(hashes.error, false);
             assert.strictEqual(hashes.message, 'Successfull');
@@ -130,7 +130,7 @@ describe('Freezing', () => {
         });
 
         it("Get hashes of Freeze Transactions by providing array of addresses expecting empty return", async () => {
-            let publicKey = 'GAHZWHFTEBXE7JGDPBEZUWX5FAQYNBBLLTUITIN2LRHVEQYO6I2JM343';
+            let publicKey = 'boa1xqcxu9rvrev9hmmwa8gxuzkvnlamkgyka37quglu5mnsfc42te97xlpnawp';
             let hashes: any = await freezing.getFreezeTransactionHashes([publicKey], "", "", "", [""]);
             assert.strictEqual(hashes.error, false);
             assert.strictEqual(hashes.message, 'Successfull');
@@ -138,7 +138,7 @@ describe('Freezing', () => {
         });
 
         it("Get hashes of Freeze Transactions by providing array of addresses contained invalid address", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPMRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5j2yt';
             let hashes: any = await freezing.getFreezeTransactionHashes([publicKey], "", "", "", [""]);
             assert.strictEqual(hashes.error, true);
             assert.ok(hashes.message, 'This key is not valid');
@@ -151,7 +151,7 @@ describe('Freezing', () => {
         });
 
         it("Get hashes of Freeze Transactions by hitting wrong URL", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt';
             let hashes: any = await invalid_freezing.getFreezeTransactionHashes([publicKey], "", "", "", []);
             assert.strictEqual(hashes.error, true);
             assert.strictEqual(hashes.message, 'Error occurred in axois request');
@@ -164,12 +164,12 @@ describe('Freezing', () => {
         let hashes: any;
 
         before("Initialize freezeUtxos & hashes", async () => {
-            publicKey = 'GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N';
+            publicKey = 'boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d';
             freezeUtxos = await freezing.getFreezeUtxos([publicKey]);
         });
 
         before("Initialize freezeUtxos & hashes", async () => {
-            publicKey = 'GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N';
+            publicKey = 'boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d';
             hashes = await freezing.getFreezeTransactionHashes([publicKey], "", "", "", []);
         });
 
@@ -199,7 +199,7 @@ describe('Freezing', () => {
         let hashes: any;
 
         before("Initialize freezeUtxos & hashes", async () => {
-            publicKey = 'GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N';
+            publicKey = 'boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d';
             freezeUtxos = await freezing.getFreezeUtxos([publicKey]);
             hashes = await freezing.getFreezeTransactionHashes([publicKey], "", "", "", []);
         });
@@ -228,7 +228,7 @@ describe('Freezing', () => {
         let utxos: any;
         let senderAddress: string;
         before('Initialize ', async () => {
-            senderAddress = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
+            senderAddress = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
             utxos = [{
                 utxo: "0x37e17420b4bfd8be693475fbbe8b53bb80904dd3e45f3080c0d0b912b004324a27693559d884b943830f6a21b05c69061f453e8b9f03d56f3b6fd5b0c6fc2f8b",
                 amount: boasdk.JSBI.BigInt(20000)
@@ -236,7 +236,7 @@ describe('Freezing', () => {
         });
 
         it("Create payment transaction to unfreeze UTXO's with sender key in string with tx_Fee is 0", async () => {
-            let sender = "SA4O5LTWW4MPQ7IJV3MNN7HDVJINSC34V5LJI4YF3PGBSUBRFCBXFHDI";
+            let sender = "SAJL5VXYSQDXWNY3UM5JVSTBMKCE57ETA37FOWIXXMIO4XM6RAUAFB4R";
             await freezing.createUnfreezeTransaction(utxos, sender, boasdk.JSBI.BigInt(0))
                 .then((res: any) => {
                     assert.strictEqual(res.error, false);
@@ -246,7 +246,7 @@ describe('Freezing', () => {
         });
 
         it("Create payment transaction to unfreeze UTXO's with tx_Fee greater then 0", async () => {
-            let sender = "SA4O5LTWW4MPQ7IJV3MNN7HDVJINSC34V5LJI4YF3PGBSUBRFCBXFHDI";
+            let sender = "SAJL5VXYSQDXWNY3UM5JVSTBMKCE57ETA37FOWIXXMIO4XM6RAUAFB4R";
             await freezing.createUnfreezeTransaction(utxos, sender, boasdk.JSBI.BigInt(10))
                 .then((res: any) => {
                     assert.strictEqual(res.error, false);
@@ -254,21 +254,10 @@ describe('Freezing', () => {
                     assert.ok(res.data);
                 });
         });
-
-        it("Create payment transaction to unfreeze UTXO's with tx_Fee greater then the user spendable balance", async () => {
-            let sender = "SA4O5LTWW4MPQ7IJV3MNN7HDVJINSC34V5LJI4YF3PGBSUBRFCBXFHDI";
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
-            await freezing.createUnfreezeTransaction(utxos, sender, boasdk.JSBI.BigInt(90000000000))
-                .then((res: any) => {
-                    assert.strictEqual(res.error, true);
-                    assert.strictEqual(res.message, 'Insufficient balance in account: ' + publicKey);
-                });
-        });
-
         it("Create payment transaction to unfreeze UTXO's with encrypted sender key", async () => {
             let sender = {
-                iv: '53d87c749ac7fbc90167de0b770e283e',
-                content: '529104d3a910c88c3e0e602bc7a869f02eb1f6068e89c08bcab669fc6f58a8c510669c1660c33c27f0fcfd483d4b1065e19e7a75b0e975a5'
+                iv: '7cc7732bab7df6384519b1eee8a3b20b',
+                content: '6385ad44c25fc3c3a5151b3303085b677f42ecbf24bf4b1e12059611bdb0802b88c7b919778ea2209c98f9c9cd5cf5f513f16ff48f532c76'
             };
             await freezing.createUnfreezeTransaction(utxos, sender, boasdk.JSBI.BigInt(0))
                 .then((res: any) => {

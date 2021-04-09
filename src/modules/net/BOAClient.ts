@@ -82,11 +82,11 @@ export class BOAClient {
 
                         let mainkp: boasdk.KeyPair;
                         if (typeof senderKey == "string") {
-                            mainkp = boasdk.KeyPair.fromSeed(new boasdk.Seed(senderKey));
+                            mainkp = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(senderKey));
                         }
                         else if (typeof senderKey == "object") {
                             let decryptKey: any = await Crypto.decrypt(senderKey);
-                            mainkp = boasdk.KeyPair.fromSeed(new boasdk.Seed(decryptKey.data.decryptedData));
+                            mainkp = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(decryptKey.data.decryptedData));
                         }
                         else {
                             return resolve({ error: true, message: messages.UNKNOWN_KEY_TYPE });
@@ -156,11 +156,11 @@ export class BOAClient {
 
                         let mainkp: boasdk.KeyPair;
                         if (typeof senderKey == "string") {
-                            mainkp = boasdk.KeyPair.fromSeed(new boasdk.Seed(senderKey));
+                            mainkp = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(senderKey));
                         }
                         else if (typeof senderKey == "object") {
                             let decryptKey: any = await Crypto.decrypt(senderKey);
-                            mainkp = boasdk.KeyPair.fromSeed(new boasdk.Seed(decryptKey.data.decryptedData));
+                            mainkp = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(decryptKey.data.decryptedData));
                         }
                         else {
                             return resolve({ error: true, message: messages.UNKNOWN_KEY_TYPE });
