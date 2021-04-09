@@ -28,20 +28,14 @@ export class KeyPair {
     public secret: boasdk.SecretKey;
 
     /**
-     * The seed key
-     */
-    public seed: boasdk.Seed;
-
-    /**
      * Constructor
      * @param address The instance of PublicKey
      * @param secret  The instance of SecretKey
      * @param seed    The instance of Seed
      */
-    constructor(address: boasdk.PublicKey, secret: boasdk.SecretKey, seed: boasdk.Seed) {
+    constructor(address: boasdk.PublicKey, secret: boasdk.SecretKey) {
         this.address = address;
         this.secret = secret;
-        this.seed = seed;
     }
 
     /**
@@ -84,9 +78,9 @@ export class KeyPair {
                         const c1: Buffer = seed.slice(0, 32);
                         const c2: Buffer = seed.slice(32, 64);
                         const c: Buffer = boasdk.SodiumHelper.sodium.crypto_core_ed25519_scalar_mul(c1, c2)
-                        const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.Seed(Buffer.from(c)));
+                        const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(Buffer.from(c)));
                         const keys: object = {
-                            secretkey: bosagoraKeyPair.seed.toString(),
+                            secretkey: bosagoraKeyPair.secret.toString(false),
                             publickey: bosagoraKeyPair.address.toString(),
                         };
                         return resolve({ error: false, data: keys, message: messages.SUCCESSFULLY_GENERATED });
@@ -122,9 +116,9 @@ export class KeyPair {
                             const c1: Buffer = seed.slice(0, 32);
                             const c2: Buffer = seed.slice(32, 64);
                             const c: Buffer = boasdk.SodiumHelper.sodium.crypto_core_ed25519_scalar_mul(c1, c2)
-                            const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.Seed(Buffer.from(c)));
+                            const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(Buffer.from(c)));
                             const keys: object = {
-                                secretkey: bosagoraKeyPair.seed.toString(),
+                                secretkey: bosagoraKeyPair.secret.toString(false),
                                 publickey: bosagoraKeyPair.address.toString(),
                             };
                             return resolve({ error: false, data: keys, message: messages.SUCCESSFULLY_GENERATED });
@@ -153,11 +147,11 @@ export class KeyPair {
                     .then(async () => {
                         try {
                             let keyTrim: string = publicKey.trim();
-                            if (keyTrim.length != 56) {
+                            if (keyTrim.length != 63) {
                                 return resolve({ error: true, message: messages.INVALID_KEY_LENGTH });
                             }
 
-                            if (keyTrim[0] != 'G') {
+                            if (keyTrim[0] != 'b') {
                                 return resolve({ error: true, message: messages.INVALID_KEY_FORMAT });
                             }
 
@@ -177,21 +171,21 @@ export class KeyPair {
 
     /**
      * Get public key against secret seed
-     * @param secretSeed Secret key of type boasdk.Seed. (string)
+     * @param secretkey Secret key of type boasdk.SecretKey. (string)
      * @returns Object - Case success: { error: false, data: { ... }, message: messages.SUCCESS }, Case error : { error: true, message: messages.UNKNOWN_ERROR }
      */
-    public static getPublicKey(secretSeed: string): Promise<Object> {
+    public static getPublicKey(secretkey: string): Promise<Object> {
         return new Promise<object>((resolve, reject) => {
             try {
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         try {
-                            let validateKey: any = await this.validSecretkey(secretSeed);
+                            let validateKey: any = await this.validSecretkey(secretkey);
                             if (validateKey.error == true) {
                                 return resolve(validateKey);
                             }
 
-                            let keyPair: boasdk.KeyPair = await boasdk.KeyPair.fromSeed(new boasdk.Seed(secretSeed));
+                            let keyPair: boasdk.KeyPair = await boasdk.KeyPair.fromSeed(new boasdk.SecretKey(secretkey));
                             return resolve({ error: false, data: { publicKey: keyPair.address.toString() }, message: messages.VALID_KEY });
                         }
                         catch (err) {
@@ -224,8 +218,7 @@ export class KeyPair {
                             if (keyTrim[0] != 'S') {
                                 return resolve({ error: true, message: messages.INVALID_KEY_FORMAT });
                             }
-
-                            new boasdk.Seed(keyTrim);
+                            new boasdk.SecretKey(keyTrim);
                             return resolve({ error: false, data: messages.VALID_KEY, message: messages.VALID_KEY });
                         }
                         catch (err) {
@@ -256,7 +249,7 @@ export class KeyPair {
                                 return resolve({ error: true, message: messages.INVALID_KEY });
                             }
 
-                            const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.Seed(secretKey));
+                            const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(secretKey));
                             let generatedPublickey: string = bosagoraKeyPair.address.toString();
                             if (generatedPublickey === publickey) {
                                 return resolve({ error: false, data: messages.SECRET_VALID_KEY, message: messages.SECRET_VALID_KEY });

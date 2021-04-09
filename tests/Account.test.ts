@@ -31,7 +31,7 @@ describe('Account', () => {
 
     describe('Get account balance summary', () => {
         it("Get account balance summary with valid data", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt';
             let amountToWithdraw = boasdk.JSBI.BigInt(10);
             let result: any = await account.accountBalanceSummary(publicKey, amountToWithdraw);
             assert.strictEqual(result.error, false);
@@ -44,23 +44,14 @@ describe('Account', () => {
         });
 
         it("Get account balance summary with invalid publicKey", async () => {
-            let publicKey = 'GCOAEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj5jsa0wj4pykt37yyggtl686ugy5wj2yt';
             let amountToWithdraw = boasdk.JSBI.BigInt(10);
             let result: any = await account.accountBalanceSummary(publicKey, amountToWithdraw);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, 'This key is not valid');
         });
-
-        it("Get account balance summary with invalid publicKey", async () => {
-            let publicKey = 'GCOAEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
-            let amountToWithdraw = boasdk.JSBI.BigInt(10);
-            let result: any = await account.accountBalanceSummary(publicKey, amountToWithdraw);
-            assert.strictEqual(result.error, true);
-            assert.strictEqual(result.message, 'This key is not valid');
-        });
-
         it("Get account balance summary with withdraw amount less than 0.5", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt';
             let amountToWithdraw = boasdk.JSBI.BigInt(0);
             let result: any = await account.accountBalanceSummary(publicKey, amountToWithdraw);
             assert.strictEqual(result.error, true);
@@ -68,7 +59,7 @@ describe('Account', () => {
         });
 
         it("Get account balance summary with withdraw amount greater than the spendable amount", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt';
             let amountToWithdraw = boasdk.JSBI.BigInt(48799999995800000000);
             let result: any = await account.accountBalanceSummary(publicKey, amountToWithdraw);
             assert.strictEqual(result.error, true);
@@ -76,7 +67,7 @@ describe('Account', () => {
         });
 
         it("Get account balance summary with invalid account urls", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt';
             let amountToWithdraw = boasdk.JSBI.BigInt(10);
             let result: any = await invalid_account.accountBalanceSummary(publicKey, amountToWithdraw);
             assert.strictEqual(result.error, true);
@@ -86,7 +77,7 @@ describe('Account', () => {
 
     describe("Get UTXO's", () => {
         it("Get UTXOS providing publicKey", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt';
             let result: any = await account.getUTXOS(publicKey);
             assert.strictEqual(result.error, false);
             assert.strictEqual(result.message, 'Success');
@@ -94,21 +85,21 @@ describe('Account', () => {
         });
 
         it("Get UTXO's providing publicKey expecting empty", async () => {
-            let publicKey = 'GAHZWHFTEBXE7JGDPBEZUWX5FAQYNBBLLTUITIN2LRHVEQYO6I2JM343';
+            let publicKey = 'boa1xqcxu9rvrev9hmmwa8gxuzkvnlamkgyka37quglu5mnsfc42te97xlpnawp';
             let result: any = await account.getUTXOS(publicKey);
             assert.strictEqual(result.error, false);
             assert.strictEqual(result.data.utxos.length, 0);
         });
 
         it("Get UTXO's providing invalid publicKey length", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wyt';
             let result: any = await account.getUTXOS(publicKey);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, 'Invalid Key length');
         });
 
         it("Get UTXO's by providing invalid urls", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt';
             let result: any = await invalid_account.getUTXOS(publicKey);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, 'Error occurred in axois request');
@@ -117,7 +108,7 @@ describe('Account', () => {
 
     describe('Get self Balance', () => {
         it("Get user self Balance by providing their public address", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt';
             let result = await account.getSelfBalance(publicKey);
             assert.strictEqual(result.error, false);
             assert.notStrictEqual(result.data.selfBalance.frozen, null);
@@ -128,7 +119,7 @@ describe('Account', () => {
         });
 
         it("Get user self Balance by providing the public address expecting 0 balance", async () => {
-            let publicKey = 'GAHZWHFTEBXE7JGDPBEZUWX5FAQYNBBLLTUITIN2LRHVEQYO6I2JM343';
+            let publicKey = 'boa1xqcxu9rvrev9hmmwa8gxuzkvnlamkgyka37quglu5mnsfc42te97xlpnawp';
             let result = await account.getSelfBalance(publicKey);
             assert.strictEqual(result.error, false);
             assert.strictEqual(Number(result.data.selfBalance.total), 0);
@@ -139,7 +130,7 @@ describe('Account', () => {
         });
 
         it("Get user self Balance by hitting wrong urls providing the public address", async () => {
-            let publicKey = 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ';
+            let publicKey = 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt';
             let result: any = await invalid_account.getSelfBalance(publicKey);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, 'Error occurred in axois request');
@@ -148,7 +139,7 @@ describe('Account', () => {
 
     describe('Get total balance', () => {
         it("Get total balance of all the accounts present in wallet", async () => {
-            let publicKeys = ['GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ', 'GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N', 'GDNODE2IMTDH7SZHXWDS24EZCMYCEJMRZWB3S4HLRIUP6UNGKVVFLVHQ'];
+            let publicKeys = ['boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt', 'boa1xqmdv3yv684shzlmrnljdrlem4drsmf5mmgkl347y7d7w2vm3vfhqjxupv8'];
             let result: any = await account.getTotalBalance(publicKeys);
             assert.strictEqual(result.error, false);
             assert.strictEqual(result.message, 'Success');
@@ -158,7 +149,7 @@ describe('Account', () => {
         });
 
         it("Get total balance by passing invalid key", async () => {
-            let publicKeys = ['GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPARIJ'];
+            let publicKeys = ['boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wk2yt'];
             let result: any = await account.getTotalBalance(publicKeys);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, `This key is not valid of key : ${publicKeys[0]}`);
@@ -172,7 +163,7 @@ describe('Account', () => {
         });
 
         it("Get total balance by hitting wrong url by passing invalid key", async () => {
-            let publicKeys = ['GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ', 'GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N', 'GDNODE2IMTDH7SZHXWDS24EZCMYCEJMRZWB3S4HLRIUP6UNGKVVFLVHQ'];
+            let publicKeys = ['boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt', 'GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N', 'GDNODE2IMTDH7SZHXWDS24EZCMYCEJMRZWB3S4HLRIUP6UNGKVVFLVHQ'];
             let result: any = await invalid_account.getTotalBalance(publicKeys);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, 'Error occurred in axois request');
@@ -181,22 +172,22 @@ describe('Account', () => {
 
     describe('Get transaction history of account', () => {
         it("Get transaction history of an account", async () => {
-            let address = "GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ";
+            let address = "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt";
             let result = await account.getTransactionHistory(address, "", "", "", [], "", "");
             assert.strictEqual(result.error, false);
             assert.ok(result.data.txHistory);
         });
 
         it("Get transaction history of an account by passing non existing peer", async () => {
-            let address = "GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ";
-            let result = await account.getTransactionHistory(address, "", "", "", ["GAHZWHFTEBXE7JGDPBEZUWX5FAQYNBBLLTUITIN2LRHVEQYO6I2JM343"], "", "");
+            let address = "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt";
+            let result = await account.getTransactionHistory(address, "", "", "", ["boa1xqcxu9rvrev9hmmwa8gxuzkvnlamkgyka37quglu5mnsfc42te97xlpnawp"], "", "");
             assert.strictEqual(result.error, false);
             assert.strictEqual(result.message, 'Record not found');
             assert.ok(result.data.txHistory);
         });
 
         it("Get transaction history of an account expecting to return none", async () => {
-            let address = "GAHZWHFTEBXE7JGDPBEZUWX5FAQYNBBLLTUITIN2LRHVEQYO6I2JM343";
+            let address = "boa1xqcxu9rvrev9hmmwa8gxuzkvnlamkgyka37quglu5mnsfc42te97xlpnawp";
             let result = await account.getTransactionHistory(address, "", "", "", [], "", "");
             assert.strictEqual(result.error, false);
             assert.strictEqual(result.message, 'Record not found');
@@ -204,23 +195,23 @@ describe('Account', () => {
         });
 
         it("Get transaction history of an account by using filters", async () => {
-            let address = "GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ";
-            let result = await account.getTransactionHistory(address, "inbound", "", "", ["GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N"], "10", "1");
+            let address = "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt";
+            let result = await account.getTransactionHistory(address, "inbound", "", "", ["boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d"], "10", "1");
             assert.strictEqual(result.error, false);
             assert.strictEqual(result.message, 'Successfull');
             assert.ok(result.data.txHistory);
         });
 
         it("Get transaction history of an account with invalid key", async () => {
-            let address = "GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLAIJ";
+            let address = "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj3rt";
             let result = await account.getTransactionHistory(address, "", "", "", [], "", "");
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, 'This key is not valid');
         });
 
         it("Get transaction history of an account by hitting wrong url", async () => {
-            let address = "GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ";
-            let result = await invalid_account.getTransactionHistory(address, "inbound", "", "", ["GAHZWHFTEBXE7JGDPBEZUWX5FAQYNBBLLTUITIN2LRHVEQYO6I2JM343"], "10", "5");
+            let address = "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt";
+            let result = await invalid_account.getTransactionHistory(address, "inbound", "", "", ["boa1xqmdv3yv684shzlmrnljdrlem4drsmf5mmgkl347y7d7w2vm3vfhqjxupv8"], "10", "5");
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, 'Error occurred in axois request');
         });
@@ -260,28 +251,28 @@ describe('Account', () => {
 
     describe('Get pending transaction', () => {
         it("Get pending transaction against the address", async () => {
-            let address = "GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ";
+            let address = "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt";
             let pendingTransactions = await account.getPendingTransactions(address);
             assert.strictEqual(pendingTransactions.error, false);
             assert.ok(pendingTransactions.data);
         });
 
         it("Get pending transaction against the address expecting empty", async () => {
-            let address = "GAHZWHFTEBXE7JGDPBEZUWX5FAQYNBBLLTUITIN2LRHVEQYO6I2JM343";
+            let address = "boa1xqcxu9rvrev9hmmwa8gxuzkvnlamkgyka37quglu5mnsfc42te97xlpnawp";
             let pendingTransactions = await account.getPendingTransactions(address);
             assert.strictEqual(pendingTransactions.error, false);
             assert.strictEqual(pendingTransactions.message, 'Record not found');
         });
 
         it("Get pending transaction against the invalid address length", async () => {
-            let address = "GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERLRIJ";
+            let address = "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ug5wj2yt";
             let pendingTransactions = await account.getPendingTransactions(address);
             assert.strictEqual(pendingTransactions.error, true);
             assert.strictEqual(pendingTransactions.message, 'Invalid Key length');
         });
 
         it("Get pending transaction by hitting wrong url", async () => {
-            let address = "GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ";
+            let address = "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt";
             let pendingTransactions = await invalid_account.getPendingTransactions(address);
             assert.strictEqual(pendingTransactions.error, true);
             assert.strictEqual(pendingTransactions.message, 'Error occurred in axois request');

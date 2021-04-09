@@ -258,11 +258,11 @@ export class Freezing {
                     .then(async () => {
                         let senderkp: boasdk.KeyPair;
                         if (typeof secretkey == "string") {
-                            senderkp = boasdk.KeyPair.fromSeed(new boasdk.Seed(secretkey));
+                            senderkp = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(secretkey));
                         }
                         else if (typeof secretkey == "object") {
                             let decryptKey: any = await Crypto.decrypt(secretkey);
-                            senderkp = boasdk.KeyPair.fromSeed(new boasdk.Seed(decryptKey.data.decryptedData));
+                            senderkp = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(decryptKey.data.decryptedData));
                         }
                         else {
                             return resolve({ error: true, message: messages.UNKNOWN_KEY_TYPE });
@@ -280,12 +280,6 @@ export class Freezing {
                                 txBuilder = tx
                                     .addInput(new boasdk.Hash(utxos[i].utxo), boasdk.JSBI.BigInt(utxos[i].amount), senderkp.secret);
                             }
-
-                            // let result: any = await this.selectFreezeUtxos(utxosAmount, senderkp.address.toString());
-                            // if (result.error) {
-                            //     return resolve(result);
-                            // }
-                            // else {
                             let hashes: any = await this.getFreezeTransactionHashes([senderkp.address.toString()], "", "", "", []);
                             if (hashes.error == true) {
                                 return resolve(hashes);
@@ -326,18 +320,13 @@ export class Freezing {
                             let tx1 = {
                                 "tx": JSON.parse(JSON.stringify(txBuilder))
                             };
-                            // let account = new Account(this.boaClient);
-                            // let selfBalance = await account.getSelfBalance(senderkp.address.toString());
-
                             return resolve({
                                 error: false, data: {
                                     txHash: tx_hash.toString(),
                                     transaction: tx1,
                                     tx_fee: txfee
-                                    // balance: selfBalance.data.selfBalance.total
                                 }, message: messages.TRANSACTION_CREATED_SUCCESSFULLY
                             });
-                            // }
                         }
                     });
             } catch (err) {

@@ -39,7 +39,7 @@ export class Login {
                             Login.loginKey = key;
                             const keyTrim: string = Login.loginKey.trim();
                             let token: string;
-                            if (keyTrim[0] === 'G') {
+                            if (keyTrim[0] === 'b') {
                                 let publicKey: any = await KeyPair.validPublickey(keyTrim);
                                 if (publicKey.error == true) {
                                     return resolve(publicKey)
@@ -56,13 +56,13 @@ export class Login {
                             }
                             else if (keyTrim[0] === 'S') {
                                 let keyPair: any = await KeyPair.validSecretkey(keyTrim);
-                                if (keyPair.error == true) {
+                                if (keyPair.error === true) {
                                     return resolve(keyPair)
                                 }
                                 else {
-                                    const keyPair: boasdk.KeyPair = await boasdk.KeyPair.fromSeed(new boasdk.Seed(keyTrim));
+                                    const keyPair: boasdk.KeyPair = await boasdk.KeyPair.fromSeed(new boasdk.SecretKey(keyTrim));
                                     Login.loginKey = keyPair.address.toString();
-                                    let encryptKey: any = await Crypto.encrypt(keyPair.seed.toString());
+                                    let encryptKey: any = await Crypto.encrypt(keyPair.secret.toString(false));
                                     if (encryptKey.error == true) {
                                         return resolve(encryptKey);
                                     }

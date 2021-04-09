@@ -1,6 +1,5 @@
 import * as assert from 'assert';
 import { boa_client, invalid_boa_client } from './config.test';
-
 import * as boasdk from 'boa-sdk-ts';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { handleNetworkError } from 'boa-sdk-ts';
@@ -11,8 +10,8 @@ import * as http from 'http';
 /**
  * Sample UTXOs
  */
-let sample_address = "GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ";
-let sample_address1 = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
+let sample_address = "boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt";
+let sample_address1 = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
 let sample_txHash = "0xc2fed6fe6e445328bf363bb2725c23593b5ac43f0e0cd456f22bab77ef7b81a2661b9a07308a909047acf2b886522a50d7dd9195072de2272509963aeec34e52";
 let sample_txHash1 = "0xf3a013153900f6416af03efc855df3880e3927fff386b3635bf46cd6e2c54769f88bd24128b6b935ab95af803cc41412fe9079b4ed7684538d86840115838814";
 let sample_txHash2 = "0x63341a4502434e2c89d0f4e46cb9cbd27dfa8a6d244685bb5eb6635d634b2179b49108e949f176906a13b8685254b1098ebf1adf44033f5c9dd6b4362c14b020";
@@ -61,8 +60,8 @@ let sample_transaction_history =
     [
         {
             "display_tx_type": "inbound",
-            "address": 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ',
-            "peer": 'GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N',
+            "address": 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt',
+            "peer": 'boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d',
             "peer_count": 1,
             "height": "9",
             "tx_hash": "0xf3a013153900f6416af03efc855df3880e3927fff386b3635bf46cd6e2c54769f88bd24128b6b935ab95af803cc41412fe9079b4ed7684538d86840115838814",
@@ -72,8 +71,8 @@ let sample_transaction_history =
         },
         {
             "display_tx_type": "inbound",
-            "address": 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ',
-            "peer": 'GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N',
+            "address": 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt',
+            "peer": 'boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d',
             "peer_count": 1,
             "height": "9",
             "tx_hash": "0xf3a013153900f6416af03efc855df3880e3927fff386b3635bf46cd6e2c54769f88bd24128b6b935ab95af803cc41412fe9079b4ed7684538d86840115838814",
@@ -83,8 +82,8 @@ let sample_transaction_history =
         },
         {
             "display_tx_type": "inbound",
-            "address": 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ',
-            "peer": 'GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N',
+            "address": 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt',
+            "peer": 'boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d',
             "peer_count": 1,
             "height": "9",
             "tx_hash": "0xf3a013153900f6416af03efc855df3880e3927fff386b3635bf46cd6e2c54769f88bd24128b6b935ab95af803cc41412fe9079b4ed7684538d86840115838814",
@@ -94,8 +93,8 @@ let sample_transaction_history =
         },
         {
             "display_tx_type": "inbound",
-            "address": 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ',
-            "peer": 'GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N',
+            "address": 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt',
+            "peer": 'boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d',
             "peer_count": 1,
             "height": "9",
             "tx_hash": "0xf3a013153900f6416af03efc855df3880e3927fff386b3635bf46cd6e2c54769f88bd24128b6b935ab95af803cc41412fe9079b4ed7684538d86840115838814",
@@ -109,8 +108,8 @@ let sample_transaction_history1 =
     [
         {
             "display_tx_type": "inbound",
-            "address": 'GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N',
-            "peer": 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ',
+            "address": 'boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d',
+            "peer": 'boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d',
             "peer_count": 1,
             "height": "9",
             "tx_hash": "0xf3a013153900f6416af03efc855df3880e3927fff386b3635bf46cd6e2c54769f88bd24128b6b935ab95af803cc41412fe9079b4ed7684538d86840115838814",
@@ -130,14 +129,14 @@ let sample_tx_overview = {
     "payload": '0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff',
     "senders": [
         {
-            "address": 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ',
+            "address": 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt',
             "amount": 610000000000000,
             "utxo": '0xb0383981111438cf154c7725293009d53462c66d641f76506400f64f55f9cb2e253dafb37af9fafd8b0031e6b9789f96a3a4be06b3a15fa592828ec7f8c489cc'
         }
     ],
     "receivers": [
         {
-            "address": 'GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N',
+            "address": 'boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d',
             "amount": 610000000000000,
             "utxo": '0xefed6c1701d1195524d469a3bbb058492a7922ff98e7284a01f14c0a32c31814f4ed0d6666aaf7071ae0f1eb615920173f13a63c8774aa5955a3af77c51e55e9'
         }
@@ -155,14 +154,14 @@ let sample_tx_overview1 = {
     "payload": '0x000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebfc0c1c2c3c4c5c6c7c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedfe0e1e2e3e4e5e6e7e8e9eaebecedeeeff0f1f2f3f4f5f6f7f8f9fafbfcfdfeff',
     "senders": [
         {
-            "address": 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ',
+            "address": 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt',
             "amount": 20000,
             "utxo": '0xcfa89b7a9cd48fddc16cdcbbf0ffa7a9fd14d89c96bc3da0151db0bd7e453fe031f8a1e4d575a299c16942d9c96fbafff2497332bc48532aa7e0acf6122be0e2'
         }
     ],
     "receivers": [
         {
-            "address": 'GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N',
+            "address": 'boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d',
             "amount": 20000,
             "utxo": '0x37e17420b4bfd8be693475fbbe8b53bb80904dd3e45f3080c0d0b912b004324a27693559d884b943830f6a21b05c69061f453e8b9f03d56f3b6fd5b0c6fc2f8b'
         }
@@ -180,14 +179,14 @@ let sample_tx_overview2 = {
     "payload": '',
     "senders": [
         {
-            "address": 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ',
+            "address": 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt',
             "amount": 20000,
             "utxo": '0xcfa89b7a9cd48fddc16cdcbbf0ffa7a9fd14d89c96bc3da0151db0bd7e453fe031f8a1e4d575a299c16942d9c96fbafff2497332bc48532aa7e0acf6122be0e2'
         }
     ],
     "receivers": [
         {
-            "address": 'GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N',
+            "address": 'boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d',
             "amount": 20000,
             "utxo": '0x37e17420b4bfd8be693475fbbe8b53bb80904dd3e45f3080c0d0b912b004324a27693559d884b943830f6a21b05c69061f453e8b9f03d56f3b6fd5b0c6fc2f8b'
         }
@@ -197,7 +196,7 @@ let sample_tx_overview2 = {
 
 let sample_pending_transaction = [{
     "tx_hash": '0xc2fed6fe6e445328bf363bb2725c23593b5ac43f0e0cd456f22bab77ef7b81a2661b9a07308a909047acf2b886522a50d7dd9195072de2272509963aeec34e52',
-    "address": 'GCOQEOHAUFYUAC6G22FJ3GZRNLGVCCLESEJ2AXBIJ5BJNUVTAERPLRIJ',
+    "address": 'boa1xrxydyju2h8l3sfytnwd3l8j4gj4jsa0wj4pykt37yyggtl686ugy5wj2yt',
     "amount": 610000000000000,
     "fee": '0',
     "submission_time": 1596152600
@@ -581,8 +580,8 @@ describe('BOA Client', () => {
     describe('Create transaction', () => {
         it("Create payment transfer transaction", async () => {
             let requestedAmount = boasdk.JSBI.BigInt(30000);
-            let receiver = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
-            let senderKey = "SCT4KKJNYLTQO4TVDPVJQZEONTVVW66YLRWAINWI3FZDY7U4JS4JJEI4";
+            let receiver = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
+            let senderKey = "SA4SEDSUCKXWKQDZWXKE4F4UWQDQS2PNTNHKDPY3MGBNCLGK6XIA3CDR";
             let result: any = await boa_client.createTransaction(receiver, requestedAmount, senderKey, boasdk.JSBI.BigInt(0), false);
             assert.strictEqual(result.error, false);
             assert.strictEqual(result.message, "Transaction created Successfully");
@@ -591,10 +590,10 @@ describe('BOA Client', () => {
 
         it("Create payment transfer transaction by passing encrypted sender key", async () => {
             let requestedAmount = boasdk.JSBI.BigInt(30000);
-            let receiver = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
+            let receiver = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
             let senderKey = {
-                iv: '40a36b238d3153a57f715a3c4680162b',
-                content: '30d8f64db7958f2b96c9382be867bdbea95eed221c2bdadfe4375a2bab1d2eadc1b8c7f63eb6492a9fb91edbde01c60f6d5a3463e3193b7e'
+                iv: '346bce7f27f86b3775e3833393a8f16d',
+                content: '2afe6523c4c7b8b1fb3ae9a5bb4f3a96c787e9f6dcdf2792ae06505beddc0f2bf729d432a9f1b36bbd35f693aad3999ed74b262b67d900c9'
             };
             let result: any = await boa_client.createTransaction(receiver, requestedAmount, senderKey, boasdk.JSBI.BigInt(0), false);
             assert.strictEqual(result.error, false);
@@ -604,8 +603,8 @@ describe('BOA Client', () => {
 
         it("Create payment transfer transaction for amount less than 0.5", async () => {
             let requestedAmount = boasdk.JSBI.BigInt(0);
-            let receiver = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
-            let senderKey = "SCT4KKJNYLTQO4TVDPVJQZEONTVVW66YLRWAINWI3FZDY7U4JS4JJEI4";
+            let receiver = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
+            let senderKey = "SA4SEDSUCKXWKQDZWXKE4F4UWQDQS2PNTNHKDPY3MGBNCLGK6XIA3CDR";
             let result: any = await boa_client.createTransaction(receiver, requestedAmount, senderKey, boasdk.JSBI.BigInt(0), false);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, "Requested Amount should not be less than 0.5 BOA");
@@ -613,8 +612,8 @@ describe('BOA Client', () => {
 
         it("Create payment transfer transaction for txFee less than 0", async () => {
             let requestedAmount = boasdk.JSBI.BigInt(30000);
-            let receiver = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
-            let senderKey = "SCT4KKJNYLTQO4TVDPVJQZEONTVVW66YLRWAINWI3FZDY7U4JS4JJEI4";
+            let receiver = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
+            let senderKey = "SA4SEDSUCKXWKQDZWXKE4F4UWQDQS2PNTNHKDPY3MGBNCLGK6XIA3CDR";
             let result: any = await boa_client.createTransaction(receiver, requestedAmount, senderKey, boasdk.JSBI.BigInt(-1), false);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, "Transaction Fee must be equal or greater than 0");
@@ -622,9 +621,9 @@ describe('BOA Client', () => {
 
         it("Create payment transfer transaction for account having no balance", async () => {
             let requestedAmount = boasdk.JSBI.BigInt(30000);
-            let receiver = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
-            let senderKey = "SBVIFSEFZ7VSXPPIOLF4NSB2LM5KOHLF7JQSZEBYOBABLXU2WVCZW6RW";
-            let senderPublicKey = "GDNE2R2VYBUBDW45WL27YZZLODMXI43D6SJHGJ2QQBZ55H4CP67PB27X";
+            let receiver = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
+            let senderKey = "SAVTYXSBHWHSQDCNP3UAVK5WO6PZBYTDWI3FUVPT3O6H4OAW3U4QDWRI";
+            let senderPublicKey = "boa1xrqddytrj9agugde9uzgy0fv8nrljd0uxam75rpufndacmz84luljjdsxza";
             let result: any = await boa_client.createTransaction(receiver, requestedAmount, senderKey, boasdk.JSBI.BigInt(0), false);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, `Insufficient balance in account: ${senderPublicKey}`);
@@ -632,8 +631,8 @@ describe('BOA Client', () => {
 
         it("Create payment transfer transaction by hitting wrong URL", async () => {
             let requestedAmount = boasdk.JSBI.BigInt(30000);
-            let receiver = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
-            let senderKey = "SCT4KKJNYLTQO4TVDPVJQZEONTVVW66YLRWAINWI3FZDY7U4JS4JJEI4";
+            let receiver = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
+            let senderKey = "SA4SEDSUCKXWKQDZWXKE4F4UWQDQS2PNTNHKDPY3MGBNCLGK6XIA3CDR";
             let result: any = await invalid_boa_client.createTransaction(receiver, requestedAmount, senderKey, boasdk.JSBI.BigInt(0), false);
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, "Error occurred in axois request");
@@ -645,8 +644,8 @@ describe('BOA Client', () => {
             let data = "Bosagora testing";
             let fee = boasdk.JSBI.BigInt(400000);
             let requestedAmount = boasdk.JSBI.BigInt(30000);
-            let receiver = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
-            let senderKey = "SCT4KKJNYLTQO4TVDPVJQZEONTVVW66YLRWAINWI3FZDY7U4JS4JJEI4";
+            let receiver = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
+            let senderKey = "SA4SEDSUCKXWKQDZWXKE4F4UWQDQS2PNTNHKDPY3MGBNCLGK6XIA3CDR";
             let result: any = await boa_client.createData(receiver, requestedAmount, senderKey, data, fee, boasdk.JSBI.BigInt(0));
             assert.strictEqual(result.error, false);
             assert.ok(result.data);
@@ -656,10 +655,10 @@ describe('BOA Client', () => {
             let data = "Bosagora testing";
             let fee = boasdk.JSBI.BigInt(400000);
             let requestedAmount = boasdk.JSBI.BigInt(30000);
-            let receiver = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
+            let receiver = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
             let senderKey = {
-                iv: '40a36b238d3153a57f715a3c4680162b',
-                content: '30d8f64db7958f2b96c9382be867bdbea95eed221c2bdadfe4375a2bab1d2eadc1b8c7f63eb6492a9fb91edbde01c60f6d5a3463e3193b7e'
+                iv: '346bce7f27f86b3775e3833393a8f16d',
+                content: '2afe6523c4c7b8b1fb3ae9a5bb4f3a96c787e9f6dcdf2792ae06505beddc0f2bf729d432a9f1b36bbd35f693aad3999ed74b262b67d900c9'
             };
             let result: any = await boa_client.createData(receiver, requestedAmount, senderKey, data, fee, boasdk.JSBI.BigInt(0));
             assert.strictEqual(result.error, false);
@@ -670,8 +669,8 @@ describe('BOA Client', () => {
             let data = "Bosagora testing";
             let fee = boasdk.JSBI.BigInt(0);
             let requestedAmount = boasdk.JSBI.BigInt(0);
-            let receiver = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
-            let senderKey = "SCT4KKJNYLTQO4TVDPVJQZEONTVVW66YLRWAINWI3FZDY7U4JS4JJEI4";
+            let receiver = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
+            let senderKey = "SA4SEDSUCKXWKQDZWXKE4F4UWQDQS2PNTNHKDPY3MGBNCLGK6XIA3CDR";
             let result: any = await boa_client.createData(receiver, requestedAmount, senderKey, data, fee, boasdk.JSBI.BigInt(0));
             assert.strictEqual(result.error, true);
             assert.ok(result.message, "Requested Amount should not be less than 0.5 BOA");
@@ -681,8 +680,8 @@ describe('BOA Client', () => {
             let data = "Bosagora testing";
             let fee = boasdk.JSBI.BigInt(0);
             let requestedAmount = boasdk.JSBI.BigInt(30000);
-            let receiver = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
-            let senderKey = "SCT4KKJNYLTQO4TVDPVJQZEONTVVW66YLRWAINWI3FZDY7U4JS4JJEI4";
+            let receiver = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
+            let senderKey = "SA4SEDSUCKXWKQDZWXKE4F4UWQDQS2PNTNHKDPY3MGBNCLGK6XIA3CDR";
             let result: any = await boa_client.createData(receiver, requestedAmount, senderKey, data, fee, boasdk.JSBI.BigInt(-1));
             assert.strictEqual(result.error, true);
             assert.ok(result.message, "Transaction Fee must be equal or greater than 0");
@@ -692,8 +691,8 @@ describe('BOA Client', () => {
             let data = "Bosagora testing";
             let fee = boasdk.JSBI.BigInt(800000);
             let requestedAmount = boasdk.JSBI.BigInt(30000);
-            let receiver = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
-            let senderKey = "SCT4KKJNYLTQO4TVDPVJQZEONTVVW66YLRWAINWI3FZDY7U4JS4JJEI4";
+            let receiver = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
+            let senderKey = "SA4SEDSUCKXWKQDZWXKE4F4UWQDQS2PNTNHKDPY3MGBNCLGK6XIA3CDR";
             let result: any = await invalid_boa_client.createData(receiver, requestedAmount, senderKey, data, fee, boasdk.JSBI.BigInt(0));
             assert.strictEqual(result.error, true);
             assert.strictEqual(result.message, "Error occurred in axois request");
@@ -704,8 +703,8 @@ describe('BOA Client', () => {
         let createTx: any;
         before("Create a transaction", async () => {
             let requestedAmount = boasdk.JSBI.BigInt(30000);
-            let receiver = "GDU3ZF52MKYWG53XSWVAAXU53HCTA7ACHWWPX5BGJC3YD6KSOSUXY62N";
-            let senderKey = "SCT4KKJNYLTQO4TVDPVJQZEONTVVW66YLRWAINWI3FZDY7U4JS4JJEI4";
+            let receiver = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
+            let senderKey = "SA4SEDSUCKXWKQDZWXKE4F4UWQDQS2PNTNHKDPY3MGBNCLGK6XIA3CDR";
             createTx = await boa_client.createTransaction(receiver, requestedAmount, senderKey, boasdk.JSBI.BigInt(0), false);
         });
 
