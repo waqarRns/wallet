@@ -15,6 +15,7 @@ import { messages } from '../enum/ResponseMessagesEnum';
 import * as boasdk from 'boa-sdk-ts';
 import { KeyPair } from './KeyPair';
 import { Crypto } from '../crypto/crypto';
+import { BOASodium } from 'boa-sodium-ts';
 
 /**
  * Login class manages login for a user
@@ -33,6 +34,7 @@ export class Login {
     public static loginUser(key: string): Promise<Object> {
         return new Promise<Object>((resolve, reject) => {
             try {
+                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         if (key) {

@@ -6,6 +6,7 @@ import { handleNetworkError } from 'boa-sdk-ts';
 import bodyParser from 'body-parser';
 import express from 'express';
 import * as http from 'http';
+import { BOASodium } from 'boa-sodium-ts';
 
 /**
  * Sample UTXOs
@@ -546,6 +547,7 @@ describe('BOA Client', () => {
     let agora_port: string = '2826';
 
     before('Wait for the package libsodium to finish loading', async () => {
+        boasdk.SodiumHelper.assign(new BOASodium());
         await boasdk.SodiumHelper.init();
     });
 
