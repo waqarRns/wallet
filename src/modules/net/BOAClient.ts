@@ -17,6 +17,7 @@ import { messages } from '../enum/ResponseMessagesEnum';
 import { Crypto } from '../crypto/crypto';
 import { Account } from '../data/Account';
 import { ISender, IBuildTx, IErr } from '../../@types/types';
+import { BOASodium } from 'boa-sodium-ts';
 
 export class BOAClient {
     /**
@@ -70,6 +71,7 @@ export class BOAClient {
     public createData(receiverAddress: string, requestedAmount: boasdk.JSBI, senderKey: string | object, data: string, payloadFee: boasdk.JSBI, tx_Fee: boasdk.JSBI): Promise<Object> {
         return new Promise<Object>((resolve, reject) => {
             try {
+                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         if (boasdk.JSBI.LE(requestedAmount, boasdk.JSBI.BigInt(0))) {
@@ -144,6 +146,7 @@ export class BOAClient {
     public createTransaction(receiverAddress: string, requestedAmount: boasdk.JSBI, senderKey: string | object, tx_Fee: boasdk.JSBI, type: Boolean): Promise<Object> {
         return new Promise<Object>((resolve, reject) => {
             try {
+                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         if (boasdk.JSBI.LE(requestedAmount, boasdk.JSBI.BigInt(0))) {
@@ -218,6 +221,7 @@ export class BOAClient {
     public buildTransaction(builder: boasdk.TxBuilder, sender: ISender): Promise<IBuildTx | IErr> {
         return new Promise<IBuildTx | IErr>(async (resolve, reject) => {
             try {
+                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         let senderkp: boasdk.KeyPair = sender.secret;
