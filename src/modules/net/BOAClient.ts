@@ -17,7 +17,6 @@ import { messages } from '../enum/ResponseMessagesEnum';
 import { Crypto } from '../crypto/crypto';
 import { Account } from '../data/Account';
 import { ISender, IBuildTx, IErr } from '../../@types/types';
-import { BOASodium } from 'boa-sodium-ts';
 
 export class BOAClient {
     /**
@@ -71,7 +70,6 @@ export class BOAClient {
     public createData(receiverAddress: string, requestedAmount: boasdk.JSBI, senderKey: string | object, data: string, payloadFee: boasdk.JSBI, tx_Fee: boasdk.JSBI): Promise<Object> {
         return new Promise<Object>((resolve, reject) => {
             try {
-                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         if (boasdk.JSBI.LE(requestedAmount, boasdk.JSBI.BigInt(0))) {
@@ -116,14 +114,11 @@ export class BOAClient {
                         let boa_client: boasdk.BOAClient = new boasdk.BOAClient(this.server_url.toString(), this.agora_url.toString());
                         let txfee = await boa_client.getTransactionFee(tx_size);
 
-                        let tx1 = {
-                            "tx": JSON.parse(JSON.stringify(txBuilder))
-                        };
                         let txHash: boasdk.Hash = await boasdk.hashFull(txBuilder);
                         return resolve({
                             error: false, data: {
                                 txHash: txHash.toString(),
-                                transaction: tx1,
+                                transaction: txBuilder,
                                 tx_fee: txfee
                             }, message: messages.TRANSACTION_CREATED_SUCCESSFULLY
                         });
@@ -146,7 +141,6 @@ export class BOAClient {
     public createTransaction(receiverAddress: string, requestedAmount: boasdk.JSBI, senderKey: string | object, tx_Fee: boasdk.JSBI, type: Boolean): Promise<Object> {
         return new Promise<Object>((resolve, reject) => {
             try {
-                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         if (boasdk.JSBI.LE(requestedAmount, boasdk.JSBI.BigInt(0))) {
@@ -194,14 +188,11 @@ export class BOAClient {
                         let boa_client: boasdk.BOAClient = new boasdk.BOAClient(this.server_url.toString(), this.agora_url.toString());
                         let txfee = await boa_client.getTransactionFee(tx_size);
 
-                        let tx1 = {
-                            "tx": JSON.parse(JSON.stringify(txBuilder))
-                        };
                         let txHash: boasdk.Hash = await boasdk.hashFull(txBuilder);
                         return resolve({
                             error: false, data: {
                                 txHash: txHash.toString(),
-                                transaction: tx1,
+                                transaction: txBuilder,
                                 tx_fee: txfee
                             }, message: messages.TRANSACTION_CREATED_SUCCESSFULLY
                         });
@@ -221,7 +212,6 @@ export class BOAClient {
     public buildTransaction(builder: boasdk.TxBuilder, sender: ISender): Promise<IBuildTx | IErr> {
         return new Promise<IBuildTx | IErr>(async (resolve, reject) => {
             try {
-                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         let senderkp: boasdk.KeyPair = sender.secret;
@@ -274,7 +264,7 @@ export class BOAClient {
             try {
                 let url: uri = uri(this.agora_url)
                     .filename("transaction");
-                Request.put(url.toString(), data)
+                Request.put(url.toString(), { tx:data })
                     .then((response: AxiosResponse) => {
                         if (response.status == 200) {
                             return resolve({

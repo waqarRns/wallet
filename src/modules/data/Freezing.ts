@@ -15,7 +15,6 @@ import { messages } from '../enum/ResponseMessagesEnum';
 import * as boasdk from 'boa-sdk-ts';
 import { Crypto } from '../crypto/crypto';
 import { ITxHashes, IUtxos, IFrozenObject, ISenderObject } from '../../@types/types';
-import { BOASodium } from 'boa-sodium-ts';
 
 /**
  * This class is used to get information from agora Blockchain
@@ -255,7 +254,6 @@ export class Freezing {
     public createUnfreezeTransaction(utxos: Array<IUtxos>, secretkey: string | object, tx_Fee: boasdk.JSBI): Promise<Object> {
         return new Promise<Object>((resolve, reject) => {
             try {
-                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         let senderkp: boasdk.KeyPair;

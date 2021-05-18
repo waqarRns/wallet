@@ -12,7 +12,6 @@
 import * as boasdk from 'boa-sdk-ts';
 import { messages } from '../enum/ResponseMessagesEnum';
 import * as bip39 from "bip39";
-import { BOASodium } from 'boa-sodium-ts';
 
 /**
  * This class is used for the generation of creditionals for new user
@@ -47,7 +46,6 @@ export class KeyPair {
     public static getMnemonics(language: string): Promise<Object> {
         return new Promise((resolve, reject) => {
             try {
-                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         try {
@@ -74,7 +72,6 @@ export class KeyPair {
     public static fromMnemonic(mnemonic: string): Promise<Object> {
         return new Promise((resolve, reject) => {
             try {
-                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         const seed: Buffer = await bip39.mnemonicToSeed(mnemonic);
@@ -101,7 +98,6 @@ export class KeyPair {
     public static recoverKeys(mnemonic: string) {
         return new Promise((resolve, reject) => {
             try {
-                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         try {
@@ -115,9 +111,7 @@ export class KeyPair {
                                 }
                             });
                             const seed: Buffer = await bip39.mnemonicToSeed(mnemonic);
-                            const c1: Buffer = seed.slice(0, 32);
-                            const c2: Buffer = seed.slice(32, 64);
-                            const c = boasdk.SodiumHelper.sodium.crypto_core_ed25519_scalar_mul(c1, c2)
+                            let c = Buffer.from(boasdk.SodiumHelper.sodium.crypto_core_ed25519_scalar_reduce(seed));
                             const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(Buffer.from(c)));
                             const keys: object = {
                                 secretkey: bosagoraKeyPair.secret.toString(false),
@@ -145,7 +139,6 @@ export class KeyPair {
     public static validPublickey(publicKey: string): Promise<Object> {
         return new Promise<object>((resolve, reject) => {
             try {
-                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         try {
@@ -180,7 +173,6 @@ export class KeyPair {
     public static getPublicKey(secretkey: string): Promise<Object> {
         return new Promise<object>((resolve, reject) => {
             try {
-                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         try {
@@ -211,7 +203,6 @@ export class KeyPair {
     public static validSecretkey(secretKey: string): Promise<Object> {
         return new Promise<Object>((resolve, reject) => {
             try {
-                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         try {
@@ -245,7 +236,6 @@ export class KeyPair {
     public static validateSecretAgainstPublickey(secretKey: string, publickey: string): Promise<Object> {
         return new Promise<Object>((resolve, reject) => {
             try {
-                boasdk.SodiumHelper.assign(new BOASodium());
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         try {
