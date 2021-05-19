@@ -114,14 +114,11 @@ export class BOAClient {
                         let boa_client: boasdk.BOAClient = new boasdk.BOAClient(this.server_url.toString(), this.agora_url.toString());
                         let txfee = await boa_client.getTransactionFee(tx_size);
 
-                        let tx1 = {
-                            "tx": JSON.parse(JSON.stringify(txBuilder))
-                        };
                         let txHash: boasdk.Hash = await boasdk.hashFull(txBuilder);
                         return resolve({
                             error: false, data: {
                                 txHash: txHash.toString(),
-                                transaction: tx1,
+                                transaction: txBuilder,
                                 tx_fee: txfee
                             }, message: messages.TRANSACTION_CREATED_SUCCESSFULLY
                         });
@@ -191,14 +188,11 @@ export class BOAClient {
                         let boa_client: boasdk.BOAClient = new boasdk.BOAClient(this.server_url.toString(), this.agora_url.toString());
                         let txfee = await boa_client.getTransactionFee(tx_size);
 
-                        let tx1 = {
-                            "tx": JSON.parse(JSON.stringify(txBuilder))
-                        };
                         let txHash: boasdk.Hash = await boasdk.hashFull(txBuilder);
                         return resolve({
                             error: false, data: {
                                 txHash: txHash.toString(),
-                                transaction: tx1,
+                                transaction: txBuilder,
                                 tx_fee: txfee
                             }, message: messages.TRANSACTION_CREATED_SUCCESSFULLY
                         });
@@ -270,7 +264,7 @@ export class BOAClient {
             try {
                 let url: uri = uri(this.agora_url)
                     .filename("transaction");
-                Request.put(url.toString(), data)
+                Request.put(url.toString(), { tx:data })
                     .then((response: AxiosResponse) => {
                         if (response.status == 200) {
                             return resolve({

@@ -75,10 +75,8 @@ export class KeyPair {
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         const seed: Buffer = await bip39.mnemonicToSeed(mnemonic);
-                        const c1: Buffer = seed.slice(0, 32);
-                        const c2: Buffer = seed.slice(32, 64);
-                        const c: Buffer = boasdk.SodiumHelper.sodium.crypto_core_ed25519_scalar_mul(c1, c2)
-                        const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(Buffer.from(c)));
+                        const scalar = Buffer.from(boasdk.SodiumHelper.sodium.crypto_core_ed25519_scalar_reduce(seed));
+                        const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(scalar));
                         const keys: object = {
                             secretkey: bosagoraKeyPair.secret.toString(false),
                             publickey: bosagoraKeyPair.address.toString(),
@@ -113,10 +111,8 @@ export class KeyPair {
                                 }
                             });
                             const seed: Buffer = await bip39.mnemonicToSeed(mnemonic);
-                            const c1: Buffer = seed.slice(0, 32);
-                            const c2: Buffer = seed.slice(32, 64);
-                            const c: Buffer = boasdk.SodiumHelper.sodium.crypto_core_ed25519_scalar_mul(c1, c2)
-                            const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(Buffer.from(c)));
+                            const scalar = Buffer.from(boasdk.SodiumHelper.sodium.crypto_core_ed25519_scalar_reduce(seed));
+                            const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(scalar));
                             const keys: object = {
                                 secretkey: bosagoraKeyPair.secret.toString(false),
                                 publickey: bosagoraKeyPair.address.toString(),

@@ -20,9 +20,9 @@ describe("Keypair", () => {
 
     describe('From mnemonics', () => {
         it('Get key pairs from mnemonics', async () => {
-            let mnemonics = "gain rather shaft people ride mirror term old layer stuff margin cradle";
-            let secretkey = "SAJL5VXYSQDXWNY3UM5JVSTBMKCE57ETA37FOWIXXMIO4XM6RAUAFB4R";
-            let publickey = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
+            let mnemonics = "load apart toilet target congress concert pony fatal oppose catch blanket gap";
+            let secretkey = "SCFSCWJ6CUAQK3OEOFRB4GRT72OL44SGPBB5JF4FVR2VCTMXJ4WQIM4U";
+            let publickey = "boa1xzfp8cxjntsshgds4n0frkmn873yfc2fg2gmzvwccn37taedf3v8qjfdhfg";
             let result: any = await wallet_lib.KeyPair.fromMnemonic(mnemonics);
             assert.strictEqual(result.error, false);
             assert.strictEqual(result.data.secretkey, secretkey);
@@ -33,8 +33,8 @@ describe("Keypair", () => {
     describe('KeyPair recovery', () => {
         it('Get key pairs from valid mnemonics', async () => {
             let mnemonics = "gain rather shaft people ride mirror term old layer stuff margin cradle";
-            let secretkey = "SAJL5VXYSQDXWNY3UM5JVSTBMKCE57ETA37FOWIXXMIO4XM6RAUAFB4R";
-            let publickey = "boa1xpess3t9us5xen526edlsdd29gfq4rq9wsj3taf8797scktsf2y9glkcp0d";
+            let secretkey = "SATF5SEKYTA6PHVC7T4Z4RMEUXRVF5PIN23KJKNBJVGHVJY3VLXAITM4";
+            let publickey = "boa1xr6dawwfkp7jgpua258ud72l2z0clx8qwthay7pv8972htnuey5wkk3av70";
             let result: any = await wallet_lib.KeyPair.recoverKeys(mnemonics);
             assert.strictEqual(result.error, false);
             assert.strictEqual(result.data.secretkey, secretkey);

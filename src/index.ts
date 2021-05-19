@@ -19,3 +19,4 @@ export { Freezing } from './modules/data/Freezing';
 export { BOAClient } from './modules/net/BOAClient';
 export { Crypto } from './modules/crypto/crypto'
 export { Request } from './modules/net/Request';
+export * as boa_sdk_ts from 'boa-sdk-ts';
