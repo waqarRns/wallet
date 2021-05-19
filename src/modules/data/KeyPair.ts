@@ -75,8 +75,8 @@ export class KeyPair {
                 boasdk.SodiumHelper.init()
                     .then(async () => {
                         const seed: Buffer = await bip39.mnemonicToSeed(mnemonic);
-                        let c = Buffer.from(boasdk.SodiumHelper.sodium.crypto_core_ed25519_scalar_reduce(seed));
-                        const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(Buffer.from(c)));
+                        const scalar = Buffer.from(boasdk.SodiumHelper.sodium.crypto_core_ed25519_scalar_reduce(seed));
+                        const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(scalar));
                         const keys: object = {
                             secretkey: bosagoraKeyPair.secret.toString(false),
                             publickey: bosagoraKeyPair.address.toString(),
@@ -111,8 +111,8 @@ export class KeyPair {
                                 }
                             });
                             const seed: Buffer = await bip39.mnemonicToSeed(mnemonic);
-                            let c = Buffer.from(boasdk.SodiumHelper.sodium.crypto_core_ed25519_scalar_reduce(seed));
-                            const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(Buffer.from(c)));
+                            const scalar = Buffer.from(boasdk.SodiumHelper.sodium.crypto_core_ed25519_scalar_reduce(seed));
+                            const bosagoraKeyPair: boasdk.KeyPair = boasdk.KeyPair.fromSeed(new boasdk.SecretKey(scalar));
                             const keys: object = {
                                 secretkey: bosagoraKeyPair.secret.toString(false),
                                 publickey: bosagoraKeyPair.address.toString(),
