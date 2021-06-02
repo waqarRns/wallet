@@ -97,8 +97,4 @@ dist
 
 lib
 
-# Documentation build folder
-docs
-sdk-test/testsdk.js
-sdk-test/testsdk.js
 src/config/environment.env.ts

@@ -36,6 +36,7 @@ export let messages = {
     TOKEN_NOT_FOUND: "Token not found",
     ARRAY_LENGTH_ZERO: "Array length is zero",
     TRANSACTION_CREATED_SUCCESSFULLY: "Transaction created Successfully",
+    FEE_CALCULATED_SUCCESSFULLY: "Transaction Fee Calculated Successfully",
     UNKNOWN_KEY_TYPE: "Unknown Secret key type",
 
     FROZEN_AMOUNT_EXCEEDED: "Amount you want to unfreeze is greater than total frozen amount of current account",

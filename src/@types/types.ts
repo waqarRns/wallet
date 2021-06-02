@@ -32,10 +32,13 @@ export interface ISender {
     drawn: boasdk.JSBI,
     secret: boasdk.KeyPair,
 }
-
+export interface IReciever {
+    amount: boasdk.JSBI,
+    address: boasdk.PublicKey,
+}
 export interface IBuildTx {
     error: boolean,
-    data: { builder: boasdk.TxBuilder },
+    data: { builder: boasdk.TxBuilder, inputCount : number },
     message: string,
 }
 
